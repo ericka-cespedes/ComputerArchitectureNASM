@@ -1,0 +1,53 @@
+add [R1:R2], AF, R7
+
+1) LD_ALL = 0, EN_ALL = 0
+INC MAR (11) 2-12
+2) LH_X = 0, EN_X = 1
+3) LD_RA = 1, C = 2
+4) LD_ACC = 1, EN_X = 0, LH_MAR = 0, IPD = 0, EN_ACC = 1, LD_RFLAGS = 1
+5) LD_MAR = 1, LD_RA = 0, LD_ACC = 0
+6) Si CFLAG = 0 //Salta a 12
+7) LH_X = 1, EN_X = 1, EN_ACC = 0
+8) LD_RA = 1, C = 2
+9) LD_ACC = 1, EN_ACC = 1, EN_X = 0
+10) LH_MAR = 1
+11) LD_MAR = 1
+12) LD_ALL = 0, EN_ALL = 0
+13) MRW = 1, MDIR = 1, EN_MBR = 1
+14) LD_MBR = 1
+15) LD_R3 = 1 //R3 = Parte alta [00]
+16) LD_MBR = 0, EN_MBR = 0, LD_R3 = 0
+17) INC MAR(11) 17-27
+28) MRW = 1, MDIR = 1, EN_MBR = 1
+29) LD_MBR = 1
+30) LD_R4 = 1 //R4 = Parte baja [AF]
+31) LD_MBR = 0, EN_MBR = 0, LD_R4 = 0
+// [00AF]
+32) EN_R4 = 1, IPD = 0, LH_MAR = 0 //Parte baja R4
+33) LD_MAR = 1 // MAR = [__AF]
+34) EN_R4 = 0, EN_R3 = 1, LD_MAR = 0, LH_MAR = 1 //Parte alta R3
+35) LD_MAR = 1 // MAR = [00AF]
+36) EN_R3 = 0, MRW = 1, EN_MBR = 1, MDIR = 1 //MBR = [00AF]
+37) LD_MBR = 1 //Bus de datos = [00AF]
+38) LD_MBR = 0, LD_RA = 1 //RA = [00AF]
+
+// RB = R7 y AF add R7
+39) LD_ALL = 0, EN_ALL = 0
+40) EN_R7 = 1
+41) LD_RB = 1 // RB = R7
+42) LD_RB = 0, EN_R7 = 0 // RB = R7
+43) C = 0 // RA add RB
+44) LD_ACC = 1, LD_RFLAGS = 1
+45) LD_ACC = 0, LD_RFLAGS = 0
+
+//Escribir en [R1:R2] el resultado de AF add R7
+46) EN_R2 = 1 //Parte baja R2
+47) IPD = 0, LH_MAR = 0
+48) LD_MAR = 1 // MAR = [__:R2]
+49) EN_R1 = 1, LD_MAR = 0 //Parte alta R1
+50) LH_MAR = 1
+51) LD_MAR = 1 // MAR = [R1:R2]
+52) MRW = 0, MDIR = 0, EN_R1 = 0, EN_ACC = 1
+53) LD_MBR = 1
+54) MRW = 1 //Dato estable y escrito
+55) Fetch

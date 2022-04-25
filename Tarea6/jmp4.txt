@@ -1,0 +1,9 @@
+jmp #ABC5
+
+1) LD_ALL = 0, EN_ALL = 0
+2) INC_MAR = 1
+3) INC_MAR = 0, MRW = 1, MDIR = 1, EN_MBR = 1
+4) LD_MBR = 1
+5) LD_IP = 1 // IP = [1A0B]
+4) LD_MBR = 0, EN_MBR = 0, LD_IP = 0
+5) Fetch
